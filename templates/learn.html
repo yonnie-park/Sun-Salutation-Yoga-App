@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<script>
+    var d = {{ d|tojson }}
+</script>
+
+<script src="/static/learn.js"></script>
+<div class="container" id="content">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div id="quiz-nav" class="col-md">
+            <button type='button' id="next-btn" class='btn btn-purple float-end'>Next</button>
+        </div>
+    </div>
+</div>
+
+<div class="progress bg-light-purple">
+  <div class="progress-bar bg-purple" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+{% endblock %}
