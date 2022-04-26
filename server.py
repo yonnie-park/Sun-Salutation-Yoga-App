@@ -8,14 +8,18 @@ import random
 
 app = Flask(__name__)
 
+with open("./static/img/muscles/labeled.svg", "r") as f:
+    MUSCLE_SVG = f.read()
+
 learn_data = {
    "1": {
       "id": "1",
       "Name": "Prayer Pose",
       "Muscles": ["Pelvis", "Legs"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Prayer Pose.jpeg",
       "gif": "/static/img/GIFs/1-mountain",
+      "muscleImg": "/static/img/muscles/poses/raised-arm.svg",
       "Directions": ["stand at the edge with feet together", "Expand your chest and relax shoulders", "Lift both arms from side as you inhale", "Bring your palms together on exhale"],
    },
 
@@ -23,9 +27,10 @@ learn_data = {
       "id": "2",
       "Name":"Raised Arm Pose",
       "Muscles": ["Hamstrings","Calves", "Spine", "Chest", "Shoulders"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Raised Arm.jpeg",
       "gif": "/static/img/GIFs/2-raised",
+      "muscleImg": "/static/img/muscles/poses/raised-arm.svg",
       "Directions": ["Lift arms up and back on inhale", "Stretch whole body", "Push pelvis forward to deepen stretch"],
    },
 
@@ -33,9 +38,10 @@ learn_data = {
       "id": "3",
       "Name": "Half Forward Bend",
       "Muscles": ["Hamstrings","Calves","Spine"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Half Forward Bend.jpeg",
       "gif": "/static/img/GIFs/3-forward",
+      "muscleImg": "/static/img/muscles/poses/forward-bend.svg",
       "Directions": ["Stretch forward", "Bend downwards", "Bring hands down to floor on exhale"],
    },
 
@@ -43,9 +49,10 @@ learn_data = {
       "id": "4",
       "Name":"Equestrian Pose (L)",
       "Muscles": ["Calves", "Hamstrings", "Quadriceps", "Hip Flexors"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Equestrian (L).jpeg",
       "gif": "/static/img/GIFs/4-equestrianL",
+      "muscleImg": "/static/img/muscles/poses/equestrian.svg",
       "Directions": ["Push right leg  back", "Look up", "Left foot between palms"]
    },
 
@@ -53,9 +60,10 @@ learn_data = {
       "id": "5",
       "Name": "Plank Pose",
       "Muscles": ["Abs", "Obliques", "Shoulders"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/plank.jpeg",
       "gif": "/static/img/GIFs/5-plank",
+      "muscleImg": "/static/img/muscles/poses/plank.svg",
       "Directions": ["Push left leg back","Do a plank with arms straight"],
    },
 
@@ -63,9 +71,10 @@ learn_data = {
       "id": "6",
       "Name":"Eight Point Salute",
       "Muscles": ["Shoulders","Spine"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Eight Point Salute.jpeg",
       "gif": "/static/img/GIFs/6-eight",
+      "muscleImg": "/static/img/muscles/poses/eight-point-salute.svg",
       "Directions": ["Bring knees to floor and exhale","Take hips back slightly", "Slide forward","Rest chest and chin on floor"],
    },
 
@@ -73,9 +82,10 @@ learn_data = {
       "id": "7",
       "Name":"Cobra Pose",
       "Muscles": ["Lower Back", "Lats","Lower Traps"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Cobra.jpeg",
       "gif": "/static/img/GIFs/7-cobra",
+      "muscleImg": "/static/img/muscles/poses/cobra.svg",
       "Directions": ["Slide forward", "Raise chest", "Keep elbows bent"],
    },
 
@@ -83,9 +93,10 @@ learn_data = {
       "id": "8",
       "Name":"Downward Facing Dog",
       "Muscles":["Claves", "Hamstrings","Lats", "Spine"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Downward Facing Dog.jpeg",
       "gif": "/static/img/GIFs/8-downward",
+      "muscleImg": "/static/img/muscles/poses/downward-dog.svg",
       "Directions": ["Lift hips", "Face chest downwards", "Keep heels to floor to deepen"],
    },
 
@@ -93,9 +104,10 @@ learn_data = {
       "id": "9",
       "Name":"Equestrian Pose (R)",
       "Muscles": ["Calves", "Hamstrings","Quadriceps","Hip Flexors"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Equestrian (R).jpeg",
       "gif": "/static/img/GIFs/9-equestrianR",
+      "muscleImg": "/static/img/muscles/poses/equestrian.svg",
       "Directions": ["Push right leg  back", "Look up" ,"Left foot between palms"],
    },
 
@@ -103,9 +115,10 @@ learn_data = {
       "id": "10",
       "Name":"Half Forward Bend",
       "Muscles":["Hamstrings", "Calves", "Spine"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Half Forward Bend.jpeg",
       "gif": "/static/img/GIFs/10-forward",
+      "muscleImg": "/static/img/muscles/poses/forward-bend.svg",
       "Directions": ["Stretch forward", "Bend downwards", "Bring hands down to floor on exhale"],
    },
 
@@ -113,9 +126,10 @@ learn_data = {
       "id": "11",
       "Name":"Raised Arm Pose",
       "Muscles": ["Hamstrings","Calves", "Spine", "Chest", "Shoulders"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Raised Arm.jpeg",
       "gif": "/static/img/GIFs/11-raised",
+      "muscleImg": "/static/img/muscles/poses/raised-arm.svg",
       "Directions": ["Lift arms up and back on inhale", "Stretch whole body", "Push pelvis forward to deepen stretch"],
    },
 
@@ -123,17 +137,16 @@ learn_data = {
       "id": "12",
       "Name":"Mountain Pose",
       "Muscles": ["Pelvis", "Legs"],
-      "Date" : "",
+      "views" : "0",
       "img": "/static/img/poses/Prayer Pose.jpeg",
       "gif": "/static/img/GIFs/1-mountain",
+      "muscleImg": "/static/img/muscles/poses/raised-arm.svg",
       "Directions": ["Straighten body", "Bring arms down"],
    }
 }
 
 # Quiz data
 QUIZ_LEN = 10
-with open("./static/img/muscles/labeled.svg", "r") as f:
-    MUSCLE_SVG = f.read()
 
 quiz_data = {
     1: {
@@ -240,16 +253,18 @@ def learn(id=None):
 
 @app.route('/learn_order')
 def learn_order():
-    return render_template('learn_order.html')
+    return render_template('learn_order.html', d = learn_data)
 
-@app.route('/update_time', methods = ['POST'])
-def update_time():
+@app.route('/update_views', methods = ['POST'])
+def update_views():
     json_data = request.get_json()
     current_id = json_data["id"]
-    current_date = json_data["Date"]
+    viewed = json_data["viewed"]
 
-    learn_data[current_id]["Date"] = current_date
-    print(learn_data[current_id])
+    if (viewed == "1"):
+        currentViews = int(learn_data[current_id]["views"])
+        learn_data[current_id]["views"] = currentViews + 1
+        print(learn_data[current_id]["views"])
 
     return jsonify(data=learn_data)
 
@@ -267,7 +282,7 @@ def quiz(id=None):
         quiz_data[id]["user_data"] = answer
         print("quiz_responses for", id)
 
-        data = quiz_data[id] 
+        data = quiz_data[id]
         print(quiz_data[id]["user_data"]["score"])
         return jsonify(data=data)
 
@@ -294,18 +309,19 @@ def quiz_results():
         if response == "":
             score_data["incomplete"] = key
             return render_template('quiz_result.html', data=score_data)
-       
+
         if type == "matching":
             matching_score += response["score"]
         elif type == "ordering":
             ordering_score += response["score"]
         elif type == "muscle":
+            print(response)
             muscle_score += response["score"]
 
     score_data.update({
         "matching_score": matching_score,
         "ordering_score": ordering_score,
-        "muscle_score": muscle_score 
+        "muscle_score": muscle_score
     })
 
     return render_template('quiz_result.html', data=score_data)
